@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/custom_gui.rpy", line 119: expected an indented block
+    current_equipped = inventory.equipped.get(slot_key)
+     ^
+
+Ren'Py Version: Ren'Py 8.3.0.24082114
+Tue Feb 17 13:10:50 2026
