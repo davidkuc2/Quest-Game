@@ -111,109 +111,67 @@ init python:
             quests.remove(quest_to_remove)
 
     # -------------------------------------------------------------------------
-    # DRAG AND DROP LOGIC FUNCTIONS
+    # INVENTORY LOGIC FUNCTIONS
     # -------------------------------------------------------------------------
 
     def equip_item(item, slot_key):
-        """Moves item from Grid List to Equipped Dict"""
-        
-        # 1. Check if something is already equipped; if so, unequip it first (Swap)
+
+        # 1. If a different item is already equipped in the target slot, unequip it first.
         current_equipped = inventory.equipped.get(slot_key)
-        if current_equipped:
+        if current_equipped and current_equipped != item:
             unequip_item(current_equipped)
 
-        # 2. Handle the item coming from Inventory Grid
-        # We need to decide if we split the stack or move the whole object
+        # 2. Handle the item coming from the inventory grid.
         if item in inventory.items:
             if item.quantity > 1:
-                # Stack Split Logic: Keep one in grid, move clone to slot
+                # If item is in a stack, split the stack.
                 item.quantity -= 1
-                
                 item_to_equip = copy.copy(item)
                 item_to_equip.quantity = 1
-                item_to_equip.is_equipped = True
             else:
-                # Single Item Logic: Remove from grid entirely
+                # If it's a single item, remove it from the grid.
                 inventory.items.remove(item)
                 item_to_equip = item
-                item_to_equip.is_equipped = True
-            
-            # 3. Place in slot
+
+            item_to_equip.is_equipped = True
             inventory.equipped[slot_key] = item_to_equip
             renpy.restart_interaction()
 
     def unequip_item(item_obj):
-        """Moves item from Equipped Dict back to Grid List"""
-        
-        # 1. Find which slot holds this item and clear it
+
+        # 1. Find which slot holds this item and clear it.
         found_slot = None
         for slot, equipped_item in inventory.equipped.items():
             if equipped_item == item_obj:
                 inventory.equipped[slot] = None
                 found_slot = slot
                 break
-        
+
         if not found_slot:
-            return # Item wasn't actually equipped?
+            return  # Item wasn't actually equipped.
 
         item_obj.is_equipped = False
 
-        # 2. Add back to grid
-        # Check if a stack of this item already exists in grid to merge with
-        found_stack = False
-        for inv_item in inventory.items:
-            # Match by name (and ensure we don't match other equipped items if logic fails)
-            if inv_item.name == item_obj.name: 
-                inv_item.quantity += 1
-                found_stack = True
-                break
-        
-        # If no stack exists, append the item object back to the list
-        if not found_stack:
+        # 2. Add the item back to the inventory grid, merging with existing stacks if possible.
+        existing_item = next((i for i in inventory.items if i.name == item_obj.name), None)
+        if existing_item:
+            existing_item.quantity += item_obj.quantity
+        else:
             inventory.items.append(item_obj)
-            
+
         renpy.restart_interaction()
 
-    def item_dragged(drags, drop):
-        """Callback for RenPy draggroup"""
-        
-        if not drop:
-            return
+    # Called when an item in the inventory screen is clicked
+    def inventory_item_interact(item): 
 
-        dragged_item_obj = drags[0].drag_name
-        target_name = drop.drag_name
-
-        # --- CASE 1: EQUIPPING (Dragging onto a slot) ---
-        if isinstance(target_name, str) and "_slot" in target_name:
-            
-            # Extract slot type from "weapon_slot" -> "weapon"
-            slot_type = target_name.replace("_slot", "")
-            
-            # Check if the dragged item is actually compatible
-            if hasattr(dragged_item_obj, "slot") and dragged_item_obj.slot == slot_type:
-                equip_item(dragged_item_obj, slot_type)
+        if isinstance(item, Equippable):
+            if item.is_equipped:
+                # If a currently equipped item is clicked, unequip it.
+                unequip_item(item)
             else:
-                renpy.notify("Wrong slot!")
-            return
-
-        # --- CASE 2: UNEQUIPPING (Dragging from slot to grid area) ---
-        # We check if the dragged object is currently inside the equipped list
-        if dragged_item_obj in inventory.equipped.values():
-            # If we dropped it on the grid background or another non-slot area
-            if target_name == "inventory_grid":
-                unequip_item(dragged_item_obj)
-                return
-
-    def item_clicked(drags):
-        item = drags[0].drag_name
-        screen = renpy.get_screen("inventory")
-        if screen:
-            if screen.scope.get("selection_mode"):
-                return item
-            # Optional: Set a variable to track what is being clicked
-            # screen.scope["dragging_item"] = item
-            renpy.restart_interaction()
-        return None
+                # If an item in the grid is clicked, equip it.
+                # The equip_item function handles swapping if the slot is occupied.
+                equip_item(item, item.slot)
 
 
 # -------------------------------------------------------------------------
@@ -242,7 +200,7 @@ default blacksmith_shop = Shop(100, 1.3, [(sword, 2), (armor, 2)])
 default inventory_unlocked = False
 default world_map_unlocked = False
 default quests_unlocked = False
-default cheating = True # Set to True for testing
+default cheating = True 
 
 # -------------------------------------------------------------------------
 # SCREENS
@@ -250,15 +208,13 @@ default cheating = True # Set to True for testing
 
 screen inventory(selection_mode=False):
     default hovered_item = None
-    default scroll_offset = 0
-    default dragging_item = None
 
     tag inventory
     zorder 1000
-    modal True 
-    
+    modal True
+
     add "images/inventory/background.png"
-    
+
     # Overlays for empty slots
     if not inventory.equipped.get("weapon"):
         add "images/inventory/weapon_overlay.png"
@@ -268,7 +224,7 @@ screen inventory(selection_mode=False):
         add "images/inventory/accessory_overlay.png"
 
     # Display Money
-    hbox:                                               
+    hbox:
         xalign 0.05
         yalign 0.95
         spacing 10
@@ -279,160 +235,71 @@ screen inventory(selection_mode=False):
         else:
             text "[inventory.money]" color "#ff0000" yalign 0.5
 
-    # Grid Calculations
-    $ cols = 6
-    $ cell_size = 250 
-    $ start_x = 60
-    $ start_y = 100
-    $ view_h = 800
-    
-    $ total_rows = (len(inventory.items) + cols - 1) // cols
-    $ content_h = total_rows * cell_size
-    $ max_scroll = max(0, content_h - view_h)
-
-    draggroup:
-        # --- DROP SLOTS ---
-        drag:
-            drag_name "weapon_slot"
-            xpos 1670 ypos 53
-            xsize 200 ysize 200
-            draggable False
-            droppable True
-            child Solid("#0000")
-        drag:
-            drag_name "armor_slot"
-            xpos 1670 ypos 311
-            xsize 200 ysize 200
-            draggable False
-            droppable True
-            child Solid("#0000")
-        drag:
-            drag_name "accessory_slot"
-            xpos 1670 ypos 569
-            xsize 200 ysize 200
-            draggable False
-            droppable True
-            child Solid("#0000")
-        
-        # General Drop Area (Background of the grid)
-        # This allows you to drag an equipped item back to "the bag" to unequip it
-        drag:
-            drag_name "inventory_grid"
-            xpos start_x ypos start_y
-            xsize (cols * cell_size) ysize view_h
-            draggable False
-            droppable True
-            child Solid("#0000")
-
-        # --- GRID ITEMS (INVENTORY.ITEMS) ---
-        for i, item in enumerate(inventory.items):
-            $ row = i // cols
-            $ col = i % cols
-            $ x = start_x + col * cell_size
-            $ y = start_y + row * cell_size - scroll_offset
-            
-            if -cell_size < (y - start_y) < view_h:
-                if isinstance(item, Equippable):
-                    # Visual Stack: This renders the item 'underneath' the top one
-                    # It creates the illusion of a stack remaining when you drag the top one
-                    if item.quantity > 1:
-                        drag:
-                            pos (x, y)
-                            draggable False
-                            droppable False
-                            vbox:
-                                hbox:
-                                    add item.image zoom 0.86
-                                    # If we are dragging this specific item, show quantity-1, else show full quantity
-                                    text str(item.quantity - 1 if dragging_item == item else item.quantity):
-                                        size 25
-                                        align (1.0, 0.0)
-
-                    # The Interactable Top Item
-                    drag:
-                        drag_name item
-                        # Unique ID based on ID + Quantity + Location Context
-                        # This ensures if quantity changes, the drag object resets to grid
-                        id "inv_{}_{}".format(id(item), item.quantity)
-                        pos (x, y)
-                        draggable True
-                        droppable False
-                        dragged item_dragged
-                        activated item_clicked
-                        
-                        hovered If(dragging_item == None, SetScreenVariable("hovered_item", item), NullAction())
-                        unhovered If(dragging_item == None, SetScreenVariable("hovered_item", None), NullAction())
-
-                        vbox:
-                            hbox:
-                                add (item.image_hover if (hovered_item == item or dragging_item == item) else item.image) zoom 0.86
-                                if item.quantity == 1:
-                                    text str(item.quantity):
-                                        size 25
-                                        align (1.0, 0.0)
-                            text item.name:
-                                size 25
-                                xalign 0.5
-
-        # --- EQUIPPED ITEMS (INVENTORY.EQUIPPED) ---
+    # --- EQUIPPED ITEMS ---
+    fixed:
         for slot, item in inventory.equipped.items():
             if item:
                 if slot == "weapon":
-                    $ equipped_x, equipped_y = 1770, 153
+                    $ pos = (1670, 53)
                 elif slot == "armor":
-                    $ equipped_x, equipped_y = 1770, 411
+                    $ pos = (1670, 311)
                 elif slot == "accessory":
-                    $ equipped_x, equipped_y = 1770, 669
-                
-                drag:
-                    drag_name item
-                    # Unique ID for equipped items specifically
-                    # Prevents it from conflicting with grid items
-                    id "equip_{}_{}".format(slot, id(item)) 
-                    pos (equipped_x, equipped_y)
-                    anchor (0.5, 0.5)
-                    draggable True
-                    droppable False 
-                    dragged item_dragged
-                    activated item_clicked
-                    
-                    hovered If(dragging_item == None, SetScreenVariable("hovered_item", item), NullAction())
-                    unhovered If(dragging_item == None, SetScreenVariable("hovered_item", None), NullAction())
+                    $ pos = (1670, 569)
 
-                    add (item.image_hover if (hovered_item == item or dragging_item == item) else item.image) zoom 0.86
-
-    # --- NON-EQUIPPABLE ITEMS ---
-    for i, item in enumerate(inventory.items):
-        $ row = i // cols
-        $ col = i % cols
-        $ x = start_x + col * cell_size
-        $ y = start_y + row * cell_size - scroll_offset
-        
-        if -cell_size < (y - start_y) < view_h:
-            if not isinstance(item, Equippable):
                 button:
-                    pos (x, y)
-                    action If(selection_mode, Return(item), NullAction())
+                    pos pos
+                    xysize (200, 200)
+                    # In selection mode, you can't interact with equipped items.
+                    # Otherwise, clicking unequips the item.
+                    action If(selection_mode, NullAction(), Function(inventory_item_interact, item))
 
-                    hovered If(dragging_item == None, SetScreenVariable("hovered_item", item), NullAction())
-                    unhovered If(dragging_item == None, SetScreenVariable("hovered_item", None), NullAction())
+                    hovered SetScreenVariable("hovered_item", item)
+                    unhovered SetScreenVariable("hovered_item", None)
 
-                    vbox:
-                        hbox:
-                            add (item.image_hover if hovered_item == item else item.image) zoom 0.86
-                            text str(item.quantity):
-                                size 25
-                                align (1.0, 0.0)
-                        text item.name:
+                    add (item.image_hover if hovered_item == item else item.image) zoom 0.86 xalign 0.5 yalign 0.5
+
+    # --- INVENTORY GRID ---
+    vpgrid:
+        cols 6
+        xpos 60
+        ypos 100
+        xsize (6 * 250)
+        ysize 800
+        scrollbars None
+        mousewheel True
+
+        for item in inventory.items:
+            button:
+                style "empty"
+                xysize (250, 250)
+                # In selection mode, clicking returns the item.
+                # Otherwise, it calls the interaction function.
+                action If(selection_mode, Return(item), Function(inventory_item_interact, item))
+
+                hovered SetScreenVariable("hovered_item", item)
+                unhovered SetScreenVariable("hovered_item", None)
+
+                vbox:
+                    xalign 0.5
+                    yalign 0.5
+                    spacing 5
+
+                    fixed:
+                        xysize (215, 215)  # Corresponds to zoom 0.86 of a 250px image
+
+                        add (item.image_hover if hovered_item == item else item.image) zoom 0.86
+
+                        text str(item.quantity):
                             size 25
-                            xalign 0.5
+                            xalign 1.0
+                            yalign 0.0
 
-    # Scrolling
-    key "mousedown_4" action SetScreenVariable("scroll_offset", max(0, scroll_offset - 50))
-    key "mousedown_5" action SetScreenVariable("scroll_offset", min(max_scroll, scroll_offset + 50))
+                    text item.name:
+                        size 25
+                        xalign 0.5
+                        text_align 0.5
 
     # Close Actions
-    # Assumed usage of your custom button
     use call_image_button_no_target(arrow_down, [Hide("inventory"), Show("call_gui")])
     key "i" action [Hide("inventory"), Show("call_gui")]
     key "game_menu" action [Hide("inventory"), Show("call_gui")]
