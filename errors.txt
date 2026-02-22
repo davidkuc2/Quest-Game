@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/custom_gui.rpy", line 119: expected an indented block
-    current_equipped = inventory.equipped.get(slot_key)
+File "game/scripts/combat/enemy.rpy", line 4: expected an indented block
+    def __init__(self, name, max_hp, hp, atk, damage, weakness, resistance, element, grade=0, image=None):
      ^
 
 Ren'Py Version: Ren'Py 8.3.0.24082114
-Tue Feb 17 13:10:50 2026
+Sat Feb 21 17:23:43 2026

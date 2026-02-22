@@ -231,7 +231,7 @@ label blacksmith_introduction:
     hide mern_idle with moveoutright
     pause 1.0
     show mern_idle at right with moveinright
-    $ inventory.add_item(sword, armor)
+    $ inventory.add_item(iron_sword, iron_armor)
     mern "Here you go, take these."
     mern "I think they will do for now, right?"
     menu:

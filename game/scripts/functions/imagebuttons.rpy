@@ -26,6 +26,12 @@ screen call_image_button_no_target(btn, action):
 default backpack = ImageButton("images/imagebuttons/backpack_%s.png", [Hide("call_gui"), Show("inventory")])
 default open_map = ImageButton("images/imagebuttons/map_%s.png", [Hide("call_gui"), Show("worldmap")])
 default quest_menu = ImageButton("images/imagebuttons/quest_menu_%s.png", [Hide("call_gui"), Show("quest_menu")])
+default follower_logbook = ImageButton("images/imagebuttons/follower_logbook_%s.png", [Hide("call_gui"), Show("follower_logbook")])
+
+# Combat
+default attack = ImageButton("images/combat/attack_button_%s.png")
+default defend = ImageButton("images/combat/defend_button_%s.png", Call("player_defend"))
+default power = ImageButton("images/combat/power_button_%s.png", Call("follower_power"))
 
 # Worldmap
 default hermea = ImageButton("images/maps/imagebuttons/hermea_%s.png", Jump("hermea"))

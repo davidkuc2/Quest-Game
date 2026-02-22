@@ -1,23 +1,7 @@
-# -------------------------------------------------------------------------
-# CLASSES & LOGIC
-# -------------------------------------------------------------------------
+init offset = 1
+
 init python:
     import copy
-
-    # --- Item Classes ---
-    class Item():
-        def __init__(self, name, cost, quantity, image, image_hover):
-            self.name = name
-            self.quantity = quantity 
-            self.cost = cost  
-            self.image = image    
-            self.image_hover = image_hover
-            self.is_equipped = False # Helper flag
-
-    class Equippable(Item):
-        def __init__(self, name, cost, quantity, image, image_hover, slot):
-            Item.__init__(self, name, cost, quantity, image, image_hover)
-            self.slot = slot
 
     # --- Inventory Class ---
     class Inventory(): 
@@ -96,32 +80,18 @@ init python:
             else:
                 renpy.notify("The merchant doesn't have enough money")
 
-    # --- Quest Class ---
-    class Quest():
-        def __init__(self, name, description):
-            self.name = name
-            self.description = description
-            
-    def give_quest(quest_to_add):
-        if quest_to_add not in quests:
-            quests.append(quest_to_add)
-
-    def remove_quest(quest_to_remove):
-        if quest_to_remove in quests:
-            quests.remove(quest_to_remove)
-
     # -------------------------------------------------------------------------
     # INVENTORY LOGIC FUNCTIONS
     # -------------------------------------------------------------------------
 
     def equip_item(item, slot_key):
 
-        # 1. If a different item is already equipped in the target slot, unequip it first.
+        # If a different item is already equipped in the target slot, unequip it first.
         current_equipped = inventory.equipped.get(slot_key)
         if current_equipped and current_equipped != item:
             unequip_item(current_equipped)
 
-        # 2. Handle the item coming from the inventory grid.
+        # Handle the item coming from the inventory grid.
         if item in inventory.items:
             if item.quantity > 1:
                 # If item is in a stack, split the stack.
@@ -135,11 +105,22 @@ init python:
 
             item_to_equip.is_equipped = True
             inventory.equipped[slot_key] = item_to_equip
+
+            # Apply Item Buffs
+            if item_to_equip.buff:
+                for stat, value in item_to_equip.buff.items():
+                    if hasattr(player_combat, stat):
+                        current_val = getattr(player_combat, stat)
+                        setattr(player_combat, stat, current_val + value)
+                        # If Max HP is increased, heal the player by that amount
+                        if stat == "max_hp":
+                            player_combat.hp += value
+
             renpy.restart_interaction()
 
     def unequip_item(item_obj):
 
-        # 1. Find which slot holds this item and clear it.
+        # Find which slot holds this item and clear it.
         found_slot = None
         for slot, equipped_item in inventory.equipped.items():
             if equipped_item == item_obj:
@@ -150,9 +131,20 @@ init python:
         if not found_slot:
             return  # Item wasn't actually equipped.
 
+        # Remove Item Buffs
+        if item_obj.buff:
+            for stat, value in item_obj.buff.items():
+                if hasattr(player_combat, stat):
+                    current_val = getattr(player_combat, stat)
+                    setattr(player_combat, stat, current_val - value)
+                    # If Max HP is decreased, clamp current HP
+                    if stat == "max_hp":
+                        if player_combat.hp > player_combat.max_hp:
+                            player_combat.hp = player_combat.max_hp
+
         item_obj.is_equipped = False
 
-        # 2. Add the item back to the inventory grid, merging with existing stacks if possible.
+        # Add the item back to the inventory grid, merging with existing stacks if possible.
         existing_item = next((i for i in inventory.items if i.name == item_obj.name), None)
         if existing_item:
             existing_item.quantity += item_obj.quantity
@@ -181,30 +173,9 @@ init python:
 # Define Inventory
 default inventory = Inventory(0)
 
-# Define Quests
-default quests = []
-default mern_ressources = Quest("Mern's Ressources", "Find suitable ressources and give them to Mern")
-
-# Define Items
-default documents = Item("documents", 0, 1, "images/inventory/documents.png", "images/inventory/documents_hover.png")
-default guild_certificate = Item("guild certificate", 0, 1, "images/inventory/guild_certificate.png", "images/inventory/guild_certificate_hover.png")
-
-# Define Equippables
-default sword = Equippable("sword", 10, 1, "images/inventory/sword.png", "images/inventory/sword_hover.png", "weapon")
-default armor = Equippable("armor", 20, 1, "images/inventory/armor.png", "images/inventory/armor_hover.png", "armor")
-
 # Define Shops
-default blacksmith_shop = Shop(100, 1.3, [(sword, 2), (armor, 2)])
+default blacksmith_shop = Shop(100, 1.3, [(iron_sword, 2), (iron_armor, 2)])
 
-# Game State Flags
-default inventory_unlocked = False
-default world_map_unlocked = False
-default quests_unlocked = False
-default cheating = True 
-
-# -------------------------------------------------------------------------
-# SCREENS
-# -------------------------------------------------------------------------
 
 screen inventory(selection_mode=False):
     default hovered_item = None
@@ -301,7 +272,7 @@ screen inventory(selection_mode=False):
 
     # Close Actions
     use call_image_button_no_target(arrow_down, [Hide("inventory"), Show("call_gui")])
-    key "i" action [Hide("inventory"), Show("call_gui")]
+    key "e" action [Hide("inventory"), Show("call_gui")]
     key "game_menu" action [Hide("inventory"), Show("call_gui")]
 
 
@@ -413,70 +384,3 @@ screen shop(shop):
     # Close Shop
     use call_image_button_no_target(arrow_down, Return())
     key "game_menu" action Return()
-
-
-screen quest_menu():
-    modal True
-    zorder 1000
-    add "background_quest"
-
-    viewport:
-        xalign 0.5
-        yalign 0.5
-        xsize 900
-        ysize 900
-        scrollbars None
-        mousewheel True
-        draggable True
-
-        vbox:
-            spacing 20
-            for q in quests:
-                vbox:
-                    text q.name color "#000000" size 40 bold True
-                    text q.description color "#000000" size 30 xsize 900
-                    null height 20
-
-    use call_image_button_no_target(arrow_down, [Hide("quest_menu"), Show("call_gui")])
-
-    key "q" action [Hide("quest_menu"), Show("call_gui")]
-    key "game_menu" action [Hide("quest_menu"), Show("call_gui")]
-
-
-screen call_gui:
-    modal False 
-    zorder 100
-
-    # Custom GUI with keybinds
-    if inventory_unlocked == True:
-        use call_image_button(backpack)
-        key "i" action [Show("inventory"), Hide("call_gui")]
-
-    if world_map_unlocked == True:
-        use call_image_button(open_map)
-        key "m" action [Show("worldmap"), Hide("call_gui")]
-
-    if cheating == True:
-        key "c" action [Show("cheat_menu"), Hide("call_gui")]
-
-    if quests_unlocked == True:
-        use call_image_button(quest_menu)
-        key "q" action [Show("quest_menu"), Hide("call_gui")]
-
-
-screen cheat_menu():
-    modal True
-    zorder 100
-    add "cheat_menu"
-
-    vbox:
-        align (0.5, 0.5)
-        spacing 20
-
-        if world_map_unlocked == False:
-            textbutton "enable worldmap" action SetVariable("world_map_unlocked", True)
-        textbutton "skip tutorial" action [SetVariable("inventory_unlocked", True), SetVariable("quests_unlocked", True), Hide("cheat_menu"), Show("call_gui"), Jump("tamra")]
-        textbutton "+100 coins" action [SetField(inventory, "money", inventory.money + 100)]
-
-    key "c" action [Hide("cheat_menu"), Show("call_gui")]
-    key "game_menu" action [Hide("cheat_menu"), Show("call_gui")]

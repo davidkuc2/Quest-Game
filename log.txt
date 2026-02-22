@@ -1,13 +1,104 @@
-2026-02-18 16:39:56 UTC
+2026-02-22 16:52:20 UTC
 Windows-10-10.0.19045
 Ren'Py 8.3.0.24082114
 
-Early init took 0.12s
-Loading error handling took 0.05s
-Loading script took 0.27s
+Early init took 0.11s
+Loading error handling took 0.04s
+Loading script took 0.34s
 Loading save slot metadata took 0.05s
 Loading persistent took 0.00s
-Running init code took 0.06s
+Running init code took 0.07s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.03s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.09s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.05s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.27s
+Cleaning stores took 0.00s
+Init translation took 0.04s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.02s
+Prepare screens took 0.11s
+Save pyanalysis. took 0.02s
+Save bytecode. took 0.03s
+Running _start took 0.00s
+Interface start took 0.06s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.05s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
+Running _start took 0.00s
+Resetting cache.
+Early init took 904.77s
+Loading error handling took 0.04s
+Loading script took 0.21s
+Loading save slot metadata took 0.04s
+Loading persistent took 0.00s
+Running init code took 0.04s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.03s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.09s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.06s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.30s
+Cleaning stores took 0.00s
+Init translation took 0.05s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.03s
+Prepare screens took 0.11s
+Save pyanalysis. took 0.02s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.05s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 1120.68s
+Loading error handling took 0.02s
+Loading script took 0.19s
+Loading save slot metadata took 0.04s
+Loading persistent took 0.00s
+Running init code took 0.04s
 Loading analysis data took 0.02s
 Analyze and compile ATL took 0.00s
 Reloading save slot metadata took 0.03s
@@ -16,22 +107,257 @@ Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\
 Dump and make backups took 0.08s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc took 0.04s
+Initial gc took 0.06s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.28s
+Creating interface object took 0.29s
 Cleaning stores took 0.00s
 Init translation took 0.04s
 Build styles took 0.00s
 Load screen analysis took 0.00s
 Analyze screens took 0.02s
 Save screen analysis took 0.02s
-Prepare screens took 0.12s
+Prepare screens took 0.11s
 Save pyanalysis. took 0.02s
-Save bytecode. took 0.03s
+Save bytecode. took 0.02s
 Running _start took 0.00s
-Interface start took 0.07s
+Interface start took 0.05s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "game/scripts/act1/tamra.rpy", line 36, in script
+    mern "Welcome to my shop adventurer, how can I help you?"
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 2572, in execute
+    Say.execute(self)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 615, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\sayexports.py", line 132, in say
+    who(what, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\character.py", line 1451, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\character.py", line 1102, in do_display
+    display_say(who,
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\character.py", line 799, in display_say
+    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2188, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 3232, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 793, in event
+    rv = self.child.event(ev, x, y, st)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\viewport.py", line 587, in event
+    rv = super(Viewport, self).event(ev, x, y, st)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 288, in event
+    rv = d.event(ev, x - xo, y - yo, st)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\behavior.py", line 1180, in event
+    return handle_click(self.clicked)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\behavior.py", line 1101, in handle_click
+    rv = run(action)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\behavior.py", line 401, in run
+    return action(*args, **kwargs)
+  File "renpy/common/00action_other.rpy", line 586, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/scripts/gui/inventory.rpy", line 166, in inventory_item_interact
+    equip_item(item, item.slot)
+  File "game/scripts/gui/inventory.rpy", line 110, in equip_item
+    if item_to_equip.buff:
+AttributeError: 'Armor' object has no attribute 'buff'
+
+While running game code:
+  File "game/scripts/act1/tamra.rpy", line 36, in script
+    mern "Welcome to my shop adventurer, how can I help you?"
+  File "renpy/common/00action_other.rpy", line 586, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/scripts/gui/inventory.rpy", line 166, in inventory_item_interact
+    equip_item(item, item.slot)
+  File "game/scripts/gui/inventory.rpy", line 110, in equip_item
+    if item_to_equip.buff:
+AttributeError: 'Armor' object has no attribute 'buff'
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.04s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
+Running _start took 0.00s
+Resetting cache.
+Early init took 1406.73s
+Loading error handling took 0.02s
+Loading script took 0.22s
+Loading save slot metadata took 0.04s
+Loading persistent took 0.00s
+Running init code took 0.04s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.03s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.08s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.07s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.26s
+Cleaning stores took 0.00s
+Init translation took 0.04s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.02s
+Prepare screens took 0.10s
+Save pyanalysis. took 0.02s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.06s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 1725.38s
+Loading error handling took 0.03s
+Loading script took 0.31s
+Loading save slot metadata took 0.04s
+Loading persistent took 0.00s
+Running init code took 0.05s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.05s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.11s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.06s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.28s
+Cleaning stores took 0.00s
+Init translation took 0.05s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.03s
+Prepare screens took 0.11s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.06s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 1923.60s
+Loading error handling took 0.03s
+Loading script took 0.20s
+Loading save slot metadata took 0.04s
+Loading persistent took 0.00s
+Running init code took 0.05s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.03s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.09s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.06s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.28s
+Cleaning stores took 0.00s
+Init translation took 0.05s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.02s
+Prepare screens took 0.10s
+Save pyanalysis. took 0.02s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.06s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 2204.41s
+Loading error handling took 0.02s
+Loading script took 0.20s
+Loading save slot metadata took 0.03s
+Loading persistent took 0.00s
+Running init code took 0.05s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.03s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.08s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.06s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.29s
+Cleaning stores took 0.00s
+Init translation took 0.05s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.02s
+Prepare screens took 0.11s
+Save pyanalysis. took 0.02s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.05s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
