@@ -30,19 +30,17 @@ label enemy_turn:                                                   # enemy turn
         "The enemy targets you!"
 
     $ base_damage_roll = roll_dice(enemy.attack_dice)
-    $ bonus_dice_roll = roll_dice("+".join(enemy.attack_bonus_dice_list)) if enemy.attack_bonus_dice_list else 0
-    $ total_base_damage = (base_damage_roll + bonus_dice_roll + enemy.attack_bonus_flat) * enemy.attack_multiplier
 
     if target == player_combat:
         $ equipped_armor = inventory.equipped.get("armor")              # get currently equipped armor
         if equipped_armor and any(elem in equipped_armor.resistance for elem in enemy.element):
             "Your armor is resistant to the enemy's element!"
-            $ enemy.damage = int(total_base_damage / 2)
+            $ enemy.damage = int(base_damage / 2)
         elif equipped_armor and any(elem in equipped_armor.weakness for elem in enemy.element):
             "Your armor is susceptible to the enemy's element!"
-            $ enemy.damage = total_base_damage * 2
+            $ enemy.damage = base_damage * 2
         else:
-            $ enemy.damage = total_base_damage
+            $ enemy.damage = base_damage
 
         if player_combat.defence == True:
             "You defend some of the damage!"
@@ -52,12 +50,12 @@ label enemy_turn:                                                   # enemy turn
     elif target == follower:
         if any(elem in follower.resistance for elem in enemy.element):
             "Your follower is resistant to the enemy's element!"
-            $ enemy.damage = int(total_base_damage / 2)
+            $ enemy.damage = int(base_damage / 2)
         elif any(elem in follower.weakness for elem in enemy.element):
             "Your follower is susceptible to the enemy's element!"
-            $ enemy.damage = total_base_damage * 2
+            $ enemy.damage = base_damage * 2
         else:
-            $ enemy.damage = total_base_damage
+            $ enemy.damage = base_damage
 
     $ roll = renpy.random.randint(1, 10)
     if roll == 10:

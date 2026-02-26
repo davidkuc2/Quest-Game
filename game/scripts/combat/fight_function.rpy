@@ -6,7 +6,7 @@ init python:
 
     class Combat_Character():
         def __init__(self, name, max_hp, hp, attack_dice, damage=0, grade=0, image=None,
-                     attack_bonus_flat=0, attack_bonus_dice_list=None, attack_multiplier=1.0):
+            attack_bonus_flat=0, attack_bonus_dice_list=None, attack_multiplier=1.0):
             self.name = name
             self.max_hp = max_hp
             self.hp = hp

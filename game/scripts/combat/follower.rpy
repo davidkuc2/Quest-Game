@@ -67,17 +67,15 @@ screen follower_turn:
 label follower_attack:                                              # follower turn after same logic
 
     $ base_damage_roll = roll_dice(follower.attack_dice)
-    $ bonus_dice_roll = roll_dice("+".join(follower.attack_bonus_dice_list)) if follower.attack_bonus_dice_list else 0
-    $ total_base_damage = (base_damage_roll + bonus_dice_roll + follower.attack_bonus_flat) * follower.attack_multiplier
 
     if any(elem in enemy.weakness for elem in follower.element):
         "The enemy is susceptible to your follower's element!"
-        $ follower.damage = total_base_damage * 2
+        $ follower.damage = base_damage * 2
     elif any(elem in enemy.resistance for elem in follower.element):
         "The enemy is resistant to your follower's element!"
-        $ follower.damage = int(total_base_damage / 2)
+        $ follower.damage = int(base_damage / 2)
     else:
-        $ follower.damage = total_base_damage
+        $ follower.damage = base_damage
 
     $ roll = renpy.random.randint(1, 10)
     if roll == 10:
@@ -124,17 +122,15 @@ label power_smite:
     "Your follower charges a powerful strike!"
 
     $ base_damage_roll = roll_dice(follower.attack_dice)
-    $ bonus_dice_roll = roll_dice("+".join(follower.attack_bonus_dice_list)) if follower.attack_bonus_dice_list else 0
-    $ total_base_damage = (base_damage_roll + bonus_dice_roll + follower.attack_bonus_flat) * follower.attack_multiplier
     
     if any(elem in enemy.weakness for elem in follower.element):
         "The enemy is susceptible to your follower's element!"
-        $ follower.damage = follower.grade * 2 + total_base_damage * 2
+        $ follower.damage = follower.grade * 2 + base_damage * 2
     elif any(elem in enemy.resistance for elem in follower.element):
         "The enemy is resistant to your follower's element!"
-        $ follower.damage = int(follower.grade * 2 + total_base_damage / 2)
+        $ follower.damage = int(follower.grade * 2 + base_damage / 2)
     else:
-        $ follower.damage = follower.grade * 2 + total_base_damage
+        $ follower.damage = follower.grade * 2 + base_damage
 
     $ roll = renpy.random.randint(1, 10)
     if roll == 10:
