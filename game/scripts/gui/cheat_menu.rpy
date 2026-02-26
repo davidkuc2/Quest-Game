@@ -12,6 +12,7 @@ screen cheat_menu():
         textbutton "skip tutorial" action [SetVariable("inventory_unlocked", True), SetVariable("quests_unlocked", True), Hide("cheat_menu"), Show("call_gui"), Jump("tamra")]
         textbutton "+100 coins" action [SetField(inventory, "money", inventory.money + 100)]
         textbutton "test fight" action Jump("test_fight")
+        textbutton "test lootbox" action Call("open_lootbox")
         if follower_logbook_unlocked == False:
             textbutton "enable follower logbook" action SetVariable("follower_logbook_unlocked", True)
         if not green_slime.unlocked:
@@ -22,7 +23,7 @@ screen cheat_menu():
 
 
 # Test Fight
-default test_enemy = Enemy_Character("Mern", 20, 20, 3, 0, ["water"], ["fire"], ["fire"], 1, "images/act1/people/mern_idle.png")
+default test_enemy = Enemy_Character("Mern", 20, 20, "1d4", 0, ["water"], ["fire"], ["fire"], 1, "images/act1/people/mern_idle.png")
 
 label test_fight:
     hide screen cheat_menu

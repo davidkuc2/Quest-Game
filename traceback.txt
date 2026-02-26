@@ -1,68 +1,32 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/scripts/act1/tamra.rpy", line 36, in script
-    mern "Welcome to my shop adventurer, how can I help you?"
-  File "renpy/common/00action_other.rpy", line 586, in __call__
-    rv = self.callable(*self.args, **self.kwargs)
-  File "game/scripts/gui/inventory.rpy", line 166, in inventory_item_interact
-    equip_item(item, item.slot)
-  File "game/scripts/gui/inventory.rpy", line 110, in equip_item
-    if item_to_equip.buff:
-AttributeError: 'Armor' object has no attribute 'buff'
+  File "game/scripts/combat/fight_function.rpy", line 104, in script call
+    call enemy_turn
+  File "game/scripts/combat/enemy.rpy", line 51, in script
+    if follower.resistance = enemy.element:
+SyntaxError: invalid syntax (game/scripts/combat/enemy.rpy, line 51)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/scripts/act1/tamra.rpy", line 36, in script
-    mern "Welcome to my shop adventurer, how can I help you?"
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 2572, in execute
-    Say.execute(self)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 615, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\sayexports.py", line 132, in say
-    who(what, *args, **kwargs)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\character.py", line 1451, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\character.py", line 1102, in do_display
-    display_say(who,
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\character.py", line 799, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2188, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 3232, in interact_core
-    rv = root_widget.event(ev, x, y, 0)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 793, in event
-    rv = self.child.event(ev, x, y, st)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 1294, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\viewport.py", line 587, in event
-    rv = super(Viewport, self).event(ev, x, y, st)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\layout.py", line 288, in event
-    rv = d.event(ev, x - xo, y - yo, st)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\behavior.py", line 1180, in event
-    return handle_click(self.clicked)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\behavior.py", line 1101, in handle_click
-    rv = run(action)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\behavior.py", line 401, in run
-    return action(*args, **kwargs)
-  File "renpy/common/00action_other.rpy", line 586, in __call__
-    rv = self.callable(*self.args, **self.kwargs)
-  File "game/scripts/gui/inventory.rpy", line 166, in inventory_item_interact
-    equip_item(item, item.slot)
-  File "game/scripts/gui/inventory.rpy", line 110, in equip_item
-    if item_to_equip.buff:
-AttributeError: 'Armor' object has no attribute 'buff'
+  File "game/scripts/combat/fight_function.rpy", line 104, in script call
+    call enemy_turn
+  File "game/scripts/combat/enemy.rpy", line 51, in script
+    if follower.resistance = enemy.element:
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1843, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1207, in py_eval
+    code = py_compile(code, 'eval')
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1144, in py_compile
+    raise e
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1081, in py_compile
+    raise orig_e
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1073, in py_compile
+    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
+SyntaxError: invalid syntax (game/scripts/combat/enemy.rpy, line 51)
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.0.24082114
 Quest 1.0
-Sun Feb 22 18:12:14 2026
+Mon Feb 23 20:59:22 2026

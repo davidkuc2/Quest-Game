@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/scripts/combat/enemy.rpy", line 4: expected an indented block
-    def __init__(self, name, max_hp, hp, atk, damage, weakness, resistance, element, grade=0, image=None):
-     ^
+File "game/scripts/gui/lootboxes.rpy", line 61: 'pause' is not a keyword argument or valid child of the screen statement.
+    pause 4.0
+         ^
 
 Ren'Py Version: Ren'Py 8.3.0.24082114
-Sat Feb 21 17:23:43 2026
+Mon Feb 23 17:59:33 2026

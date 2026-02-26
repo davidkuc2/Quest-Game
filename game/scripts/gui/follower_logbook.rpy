@@ -11,6 +11,7 @@ screen follower_logbook:
     $ items_per_page = 2
     # Calculate total pages (at least 1)
     $ total_pages = max(1, (len(all_followers) + items_per_page - 1) // items_per_page)
+    $ total_slots = total_pages * items_per_page
 
     # Navigation Arrows
     if current_page > 0:
@@ -39,7 +40,7 @@ screen follower_logbook:
         # Create a list for the page, padding with None for empty slots
         $ page_items = followers_on_page + [None] * (items_per_page - len(followers_on_page))
 
-        for f in page_items:
+        for i, f in enumerate(page_items):
             # Create a container for each slot that is half the screen width
             fixed:
                 xsize 960 # 1920 / 2
@@ -62,7 +63,12 @@ screen follower_logbook:
                                 add f.image + "_equipped.png" align (0.5, 0.5)
                         else:
                             add f.image + "_locked.png" align (0.5, 0.5)
+
+                $ current_slot = current_page * items_per_page + i + 1
+                text str(current_slot) + "/" + str(total_slots) color "#000000" xalign 0.5 yalign 0.95 size 30
     
     use call_image_button_no_target(arrow_down, [Hide("follower_logbook"), Show("call_gui")])
     key "f" action [Hide("follower_logbook"), Show("call_gui")]
     key "game_menu" action [Hide("follower_logbook"), Show("call_gui")]
+
+# Unlocking follower_logbook at first follower

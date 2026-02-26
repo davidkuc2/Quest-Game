@@ -109,7 +109,11 @@ init python:
             # Apply Item Buffs
             if item_to_equip.buff:
                 for stat, value in item_to_equip.buff.items():
-                    if hasattr(player_combat, stat):
+                    if stat == "attack_bonus_dice":
+                        player_combat.attack_bonus_dice_list.append(value)
+                    elif stat == "attack_multiplier":
+                        player_combat.attack_multiplier *= value
+                    elif hasattr(player_combat, stat): # For flat bonuses like max_hp, attack_bonus_flat, etc.
                         current_val = getattr(player_combat, stat)
                         setattr(player_combat, stat, current_val + value)
                         # If Max HP is increased, heal the player by that amount
@@ -134,7 +138,13 @@ init python:
         # Remove Item Buffs
         if item_obj.buff:
             for stat, value in item_obj.buff.items():
-                if hasattr(player_combat, stat):
+                if stat == "attack_bonus_dice":
+                    if value in player_combat.attack_bonus_dice_list:
+                        player_combat.attack_bonus_dice_list.remove(value)
+                elif stat == "attack_multiplier":
+                    if value != 0: # Avoid division by zero
+                        player_combat.attack_multiplier /= value
+                elif hasattr(player_combat, stat):
                     current_val = getattr(player_combat, stat)
                     setattr(player_combat, stat, current_val - value)
                     # If Max HP is decreased, clamp current HP

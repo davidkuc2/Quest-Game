@@ -2,19 +2,23 @@ init python:
     import copy
 
     class Follower_Character(Combat_Character):
-        def __init__(self, name, max_hp, hp, atk, damage, weakness, resistance, element, power, grade=0, image=None, unlocked=False):
-            Combat_Character.__init__(self, name, max_hp, hp, atk, damage, grade, image)
+        def __init__(self, name, max_hp, hp, attack_dice, damage, weakness, resistance, element, power, rarity, grade=0, image=None, unlocked=False):
+            Combat_Character.__init__(self, name, max_hp, hp, attack_dice, damage, grade, image)
             self.weakness = weakness
             self.resistance = resistance
             self.element = element
             self.power = power
+            self.rarity = rarity
             self.unlocked = unlocked
 
         def unlock(self):
-            self.unlocked = True
-            if self not in all_followers:
-                all_followers.append(self)
+            if not self.unlocked:
+                self.unlocked = True
                 renpy.notify("New Follower: " + self.name)
+
+            if not renpy.store.follower_logbook_unlocked:
+                renpy.store.follower_logbook_unlocked = True
+                renpy.notify("Follower Logbook Unlocked!")
 
     class Power():
         def __init__(self, name, label_name):
@@ -34,14 +38,14 @@ init python:
     def unequip_follower():
         global follower
         # Reset to a dummy/empty follower
-        follower = Follower_Character("", 0, 0, 0, 0, [], [], [], None, 0, None)
+        follower = Follower_Character("", 0, 0, "", 0, [], [], [], None, 0, None)
         renpy.restart_interaction()
 
 
 # Define Followers
-default follower = Follower_Character("", 0, 0, 0, 0, [], [], [], None, 0, None)
-default green_slime = Follower_Character("Green Slime", 10, 10, 2, 0, ["fire"], ["water", "slime"], ["slime"], None, 1, "images/enemies/green_slime", False)
-default all_followers = []
+default follower = Follower_Character("", 0, 0, "", 0, [], [], [], None, 0, None)
+default green_slime = Follower_Character("Green Slime", 10, 10, "1d2", 0, ["fire"], ["water", "slime"], ["slime"], None, "common", 1, "images/enemies/green_slime", False)
+default all_followers = [green_slime]
 
 
 # Define Powers
@@ -62,16 +66,20 @@ screen follower_turn:
 # Follower Attack
 label follower_attack:                                              # follower turn after same logic
 
-    $ roll = renpy.random.randint(1, 10)
+    $ base_damage_roll = roll_dice(follower.attack_dice)
+    $ bonus_dice_roll = roll_dice("+".join(follower.attack_bonus_dice_list)) if follower.attack_bonus_dice_list else 0
+    $ total_base_damage = (base_damage_roll + bonus_dice_roll + follower.attack_bonus_flat) * follower.attack_multiplier
+
     if any(elem in enemy.weakness for elem in follower.element):
         "The enemy is susceptible to your follower's element!"
-        $ follower.damage = follower.atk*2
+        $ follower.damage = total_base_damage * 2
     elif any(elem in enemy.resistance for elem in follower.element):
         "The enemy is resistant to your follower's element!"
-        $ follower.damage = int(follower.atk/2)
+        $ follower.damage = int(total_base_damage / 2)
     else:
-        $ follower.damage = follower.atk
+        $ follower.damage = total_base_damage
 
+    $ roll = renpy.random.randint(1, 10)
     if roll == 10:
         "Critical Hit!"
         $ follower.damage = int(follower.damage*1.5)
@@ -114,15 +122,19 @@ label power_defend:
 # Powerful Attack
 label power_smite:
     "Your follower charges a powerful strike!"
+
+    $ base_damage_roll = roll_dice(follower.attack_dice)
+    $ bonus_dice_roll = roll_dice("+".join(follower.attack_bonus_dice_list)) if follower.attack_bonus_dice_list else 0
+    $ total_base_damage = (base_damage_roll + bonus_dice_roll + follower.attack_bonus_flat) * follower.attack_multiplier
     
     if any(elem in enemy.weakness for elem in follower.element):
         "The enemy is susceptible to your follower's element!"
-        $ follower.damage = follower.grade*2+follower.atk*2
+        $ follower.damage = follower.grade * 2 + total_base_damage * 2
     elif any(elem in enemy.resistance for elem in follower.element):
         "The enemy is resistant to your follower's element!"
-        $ follower.damage = int(follower.grade*2+follower.atk/2)
+        $ follower.damage = int(follower.grade * 2 + total_base_damage / 2)
     else:
-        $ follower.damage = follower.grade*2+follower.atk
+        $ follower.damage = follower.grade * 2 + total_base_damage
 
     $ roll = renpy.random.randint(1, 10)
     if roll == 10:

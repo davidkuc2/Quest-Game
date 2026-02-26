@@ -2,20 +2,48 @@
 init offset = -1
 
 init python:
+    import re
 
     class Combat_Character():
-        def __init__(self, name, max_hp, hp, atk, damage=0, grade=0, image=None):
+        def __init__(self, name, max_hp, hp, attack_dice, damage=0, grade=0, image=None,
+                     attack_bonus_flat=0, attack_bonus_dice_list=None, attack_multiplier=1.0):
             self.name = name
             self.max_hp = max_hp
             self.hp = hp
-            self.atk = atk  
+            self.attack_dice = attack_dice
+            self.attack_bonus_flat = attack_bonus_flat
+            self.attack_bonus_dice_list = attack_bonus_dice_list if attack_bonus_dice_list is not None else []
             self.damage = damage     
             self.grade = grade
             self.image = image
 
+    def roll_dice(dice_string):
+        if not isinstance(dice_string, str) or not dice_string:
+            return 0
+
+        # Regex to parse strings like "d6", "1d6", "2d8+2"
+        match = re.match(r"(\d*)d(\d+)(?:\s*\+\s*(\d+))?", dice_string.lower().strip())
+        if not match:
+            return 0
+
+        num_dice_str, num_sides_str, modifier_str = match.groups()
+
+        num_dice = int(num_dice_str) if num_dice_str else 1
+        num_sides = int(num_sides_str)
+        modifier = int(modifier_str) if modifier_str else 0
+
+        if num_sides == 0:
+            return modifier
+
+        total = sum(renpy.random.randint(1, num_sides) for _ in range(num_dice))
+        return total + modifier
+
     def combat_reset():
         player_combat.hp = player_combat.max_hp
         follower.hp = follower.max_hp
+        player_combat.attack_bonus_flat = 0
+        player_combat.attack_bonus_dice_list = []
+        player_combat.attack_multiplier = 1.0
         enemy.hp = enemy.max_hp
 
 
@@ -90,7 +118,6 @@ label fight:
     $ turn_count = 1
     show screen fight
     while player_combat.hp > 0:                             # loop as long as alive
-        $ player_combat.defence = False                     # reset defense at start of turn
         "Your turn!"
 
         call screen player_turn
