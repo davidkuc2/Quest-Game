@@ -1,32 +1,51 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/scripts/combat/fight_function.rpy", line 104, in script call
-    call enemy_turn
-  File "game/scripts/combat/enemy.rpy", line 51, in script
-    if follower.resistance = enemy.element:
-SyntaxError: invalid syntax (game/scripts/combat/enemy.rpy, line 51)
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
+  File "renpy/common/00start.rpy", line 194, in <module>
+    renpy.execute_default_statement(True)
+  File "game/scripts/combat/follower.rpy", line 68, in execute_default
+    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
+  File "game/scripts/combat/follower.rpy", line 68, in <module>
+    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
+NameError: name 'seapserpent' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/scripts/combat/fight_function.rpy", line 104, in script call
-    call enemy_turn
-  File "game/scripts/combat/enemy.rpy", line 51, in script
-    if follower.resistance = enemy.element:
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1843, in execute
-    if renpy.python.py_eval(condition):
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1207, in py_eval
-    code = py_compile(code, 'eval')
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1144, in py_compile
-    raise e
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1081, in py_compile
-    raise orig_e
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1073, in py_compile
-    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
-SyntaxError: invalid syntax (game/scripts/combat/enemy.rpy, line 51)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\bootstrap.py", line 359, in bootstrap
+    renpy.main.main()
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\main.py", line 652, in main
+    run(restart)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\main.py", line 148, in run
+    renpy.execution.run_context(True)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\execution.py", line 958, in run_context
+    context.run()
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
+  File "lib/python3.9/future/utils/__init__.py", line 444, in raise_
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 821, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "renpy/common/00start.rpy", line 194, in <module>
+    renpy.execute_default_statement(True)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\statementexports.py", line 372, in execute_default_statement
+    i.execute_default(start)
+  File "game/scripts/combat/follower.rpy", line 68, in execute_default
+    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/scripts/combat/follower.rpy", line 68, in <module>
+    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
+NameError: name 'seapserpent' is not defined
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.0.24082114
 Quest 1.0
-Mon Feb 23 20:59:22 2026
+Sat Feb 28 17:03:48 2026

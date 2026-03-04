@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/scripts/gui/lootboxes.rpy", line 61: 'pause' is not a keyword argument or valid child of the screen statement.
-    pause 4.0
-         ^
+File "game/scripts/gui/follower_logbook.rpy", line 35: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    shader "custom.green_outline"
+    ^
 
 Ren'Py Version: Ren'Py 8.3.0.24082114
-Mon Feb 23 17:59:33 2026
+Fri Feb 27 18:03:05 2026

@@ -5,14 +5,11 @@ init python:
     import re
 
     class Combat_Character():
-        def __init__(self, name, max_hp, hp, attack_dice, damage=0, grade=0, image=None,
-            attack_bonus_flat=0, attack_bonus_dice_list=None, attack_multiplier=1.0):
+        def __init__(self, name, max_hp, hp, attack_dice, damage=0, grade=1, image=None):
             self.name = name
-            self.max_hp = max_hp
-            self.hp = hp
+            self.max_hp = int(max_hp * grade)
+            self.hp = int(hp * grade)
             self.attack_dice = attack_dice
-            self.attack_bonus_flat = attack_bonus_flat
-            self.attack_bonus_dice_list = attack_bonus_dice_list if attack_bonus_dice_list is not None else []
             self.damage = damage     
             self.grade = grade
             self.image = image
@@ -41,10 +38,10 @@ init python:
     def combat_reset():
         player_combat.hp = player_combat.max_hp
         follower.hp = follower.max_hp
+        enemy.hp = enemy.max_hp
         player_combat.attack_bonus_flat = 0
         player_combat.attack_bonus_dice_list = []
         player_combat.attack_multiplier = 1.0
-        enemy.hp = enemy.max_hp
 
 
 default turn_count = 1

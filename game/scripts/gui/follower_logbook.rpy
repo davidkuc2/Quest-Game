@@ -1,3 +1,43 @@
+init python:
+    renpy.register_shader("custom.green_outline", variables="""
+        uniform float u_outline_width;
+        uniform vec4 u_outline_color;
+        uniform sampler2D tex0;
+        uniform vec2 res0;
+        attribute vec2 a_tex_coord;
+        varying vec2 v_tex_coord;
+    """, vertex_300="""
+        v_tex_coord = a_tex_coord;
+    """, fragment_300="""
+        vec2 one_pixel = vec2(1.0) / res0;
+        vec4 color = texture2D(tex0, v_tex_coord);
+        
+        if (color.a > 0.1) {
+            gl_FragColor = color;
+            return;
+        }
+        
+        float alpha = 0.0;
+        alpha = max(alpha, texture2D(tex0, v_tex_coord + vec2(u_outline_width * one_pixel.x, 0.0)).a);
+        alpha = max(alpha, texture2D(tex0, v_tex_coord - vec2(u_outline_width * one_pixel.x, 0.0)).a);
+        alpha = max(alpha, texture2D(tex0, v_tex_coord + vec2(0.0, u_outline_width * one_pixel.y)).a);
+        alpha = max(alpha, texture2D(tex0, v_tex_coord - vec2(0.0, u_outline_width * one_pixel.y)).a);
+        
+        if (alpha > 0.1) {
+            gl_FragColor = u_outline_color;
+        } else {
+            gl_FragColor = color;
+        }
+    """)
+
+transform equipped_outline:
+    shader "custom.green_outline"
+    u_outline_width 5.0
+    u_outline_color (0.0, 0.5, 0.0, 1.0)
+
+transform no_outline:
+    shader "renpy.texture"
+
 screen follower_logbook:
     modal True
     zorder 100
@@ -15,17 +55,13 @@ screen follower_logbook:
 
     # Navigation Arrows
     if current_page > 0:
-        # Position the left arrow (adjust xpos/ypos as needed for your UI)
+        
         fixed:
-            align (0.1, 0.5)
-            xysize (100, 100)
             use call_image_button_no_target(arrow_left, SetScreenVariable("current_page", current_page - 1))
     
     if current_page < total_pages - 1:
-        # Position the right arrow
+        
         fixed:
-            align (0.9, 0.5)
-            xysize (100, 100)
             use call_image_button_no_target(arrow_right, SetScreenVariable("current_page", current_page + 1))
 
     # --- FOLLOWER DISPLAY ---
@@ -55,12 +91,11 @@ screen follower_logbook:
                         unhovered SetScreenVariable("hovered_follower", None)
                         
                         if f.unlocked:
-                            if hovered_follower == f:
-                                add f.image + "_hover.png" align (0.5, 0.5)
-                            else:
-                                add f.image + "_idle.png" align (0.5, 0.5)
+                            $ img = f.image + ("_hover.png" if hovered_follower == f else "_idle.png")
                             if follower == f:
-                                add f.image + "_equipped.png" align (0.5, 0.5)
+                                add img align (0.5, 0.5) at equipped_outline
+                            else:
+                                add img align (0.5, 0.5) at no_outline
                         else:
                             add f.image + "_locked.png" align (0.5, 0.5)
 
@@ -70,5 +105,3 @@ screen follower_logbook:
     use call_image_button_no_target(arrow_down, [Hide("follower_logbook"), Show("call_gui")])
     key "f" action [Hide("follower_logbook"), Show("call_gui")]
     key "game_menu" action [Hide("follower_logbook"), Show("call_gui")]
-
-# Unlocking follower_logbook at first follower

@@ -1,5 +1,6 @@
 # Arrival in the world of Hermea
 label arrival:
+    show screen call_gui
     scene arrival with Dissolve(.5)
     show milim_idle at right with Dissolve(.5)
     milim "Greetings human, welcome to this world. Do you remember your name?"
@@ -85,7 +86,6 @@ label church_introduction:
     larisa "Here you go."
     $ inventory_unlocked = True
     $ inventory.add_item(documents)
-    show screen call_gui
     milim "How about you open your inventory at the top left and take a look?"
     milim "Great. Now that you have your documents we can register you at the adventurers guild."
     $ church_unlocked, guild_unlocked = False, True

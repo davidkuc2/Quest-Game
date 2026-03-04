@@ -111,6 +111,8 @@ init python:
                 for stat, value in item_to_equip.buff.items():
                     if stat == "attack_bonus_dice":
                         player_combat.attack_bonus_dice_list.append(value)
+                    elif isinstance(value, bool) and hasattr(player_combat, stat):
+                        setattr(player_combat, stat, value)
                     elif stat == "attack_multiplier":
                         player_combat.attack_multiplier *= value
                     elif hasattr(player_combat, stat): # For flat bonuses like max_hp, attack_bonus_flat, etc.
@@ -141,6 +143,9 @@ init python:
                 if stat == "attack_bonus_dice":
                     if value in player_combat.attack_bonus_dice_list:
                         player_combat.attack_bonus_dice_list.remove(value)
+                elif isinstance(value, bool) and hasattr(player_combat, stat):
+                    # Assuming the default for a boolean buff is False
+                    setattr(player_combat, stat, False)
                 elif stat == "attack_multiplier":
                     if value != 0: # Avoid division by zero
                         player_combat.attack_multiplier /= value
@@ -173,7 +178,12 @@ init python:
             else:
                 # If an item in the grid is clicked, equip it.
                 # The equip_item function handles swapping if the slot is occupied.
-                equip_item(item, item.slot)
+                if isinstance(item, Weapon):
+                    equip_item(item, "weapon")
+                elif isinstance(item, Armor):
+                    equip_item(item, "armor")
+                elif isinstance(item, Accessory):
+                    equip_item(item, "accessory")
 
 
 # -------------------------------------------------------------------------

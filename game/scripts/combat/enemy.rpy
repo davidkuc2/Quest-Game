@@ -2,7 +2,7 @@ init python:
     import copy
 
     class Enemy_Character(Combat_Character):
-        def __init__(self, name, max_hp, hp, attack_dice, damage, weakness, resistance, element, grade=0, image=None):
+        def __init__(self, name, max_hp, hp, attack_dice, damage, weakness, resistance, element, grade=1, image=None):
             Combat_Character.__init__(self, name, max_hp, hp, attack_dice, damage, grade, image)
             self.weakness = weakness            # doubles damage taken
             self.resistance = resistance        # halves damage taken
@@ -10,7 +10,7 @@ init python:
 
 
 # Define Enemies
-default enemy = Enemy_Character("", 0, 0, "", 0, [], [], [], 0, "")
+default enemy = Enemy_Character("", 0, 0, "", 0, [], [], [], 1, "")
 
 
 # Enemy Turn
@@ -35,12 +35,12 @@ label enemy_turn:                                                   # enemy turn
         $ equipped_armor = inventory.equipped.get("armor")              # get currently equipped armor
         if equipped_armor and any(elem in equipped_armor.resistance for elem in enemy.element):
             "Your armor is resistant to the enemy's element!"
-            $ enemy.damage = int(base_damage / 2)
+            $ enemy.damage = int(base_damage_roll / 2)
         elif equipped_armor and any(elem in equipped_armor.weakness for elem in enemy.element):
             "Your armor is susceptible to the enemy's element!"
-            $ enemy.damage = base_damage * 2
+            $ enemy.damage = base_damage_roll * 2
         else:
-            $ enemy.damage = base_damage
+            $ enemy.damage = base_damage_roll
 
         if player_combat.defence == True:
             "You defend some of the damage!"
@@ -50,17 +50,18 @@ label enemy_turn:                                                   # enemy turn
     elif target == follower:
         if any(elem in follower.resistance for elem in enemy.element):
             "Your follower is resistant to the enemy's element!"
-            $ enemy.damage = int(base_damage / 2)
+            $ enemy.damage = int(base_damage_roll / 2)
         elif any(elem in follower.weakness for elem in enemy.element):
             "Your follower is susceptible to the enemy's element!"
-            $ enemy.damage = base_damage * 2
+            $ enemy.damage = base_damage_roll * 2
         else:
-            $ enemy.damage = base_damage
+            $ enemy.damage = base_damage_roll
 
     $ roll = renpy.random.randint(1, 10)
     if roll == 10:
         "Critical Hit!"
-        $ enemy.damage = int(enemy.damage*1.5)
+        if enemy.damage > 0:
+            $ enemy.damage = max(int(enemy.damage * 1.5), enemy.damage + 1)
 
     $ target.hp -= enemy.damage
     if target.hp < 0:
