@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/scripts/gui/follower_logbook.rpy", line 35: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    shader "custom.green_outline"
-    ^
+File "game/scripts/gui/lootboxes.rpy", line 166: 'size' is not a keyword argument or valid child of the fixed statement.
+    size (LOOTBOX_WIDTH, LOOTBOX_HEIGHT)
+        ^
 
 Ren'Py Version: Ren'Py 8.3.0.24082114
-Fri Feb 27 18:03:05 2026
+Thu Mar  5 23:19:48 2026

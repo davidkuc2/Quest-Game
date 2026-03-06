@@ -42,6 +42,7 @@ init python:
         player_combat.attack_bonus_flat = 0
         player_combat.attack_bonus_dice_list = []
         player_combat.attack_multiplier = 1.0
+        follower.power_last_used_turn = -100
 
 
 default turn_count = 1

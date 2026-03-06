@@ -1,4 +1,5 @@
-# Screen Tamra
+# tamra overview
+
 screen tamra: 
     use call_image_button(church)
     use call_image_button(guild)
@@ -6,20 +7,22 @@ screen tamra:
     use call_image_button(mages_tower)
     use call_image_button_no_target(arrow_down, Jump("hermea"))
 
-# Tamra
 label tamra:
     scene tamra with Dissolve(.5)
     call screen tamra 
 
 # Church
+
 label church:
     pass
 
 # Guild
+
 label guild:
     pass
 
 # Blacksmith
+
 screen blacksmith:
     add "blacksmith"
     use call_image_button(mern_button)
@@ -30,6 +33,7 @@ label blacksmith:
 
 default quest_mern = False
 
+# menu for interaction 
 label menu_mern:
     scene blacksmith
     show mern_idle at left
@@ -76,5 +80,6 @@ label menu_mern:
             jump blacksmith
 
 # Mages Tower
+
 label mages_tower:
     pass

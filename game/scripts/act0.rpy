@@ -1,5 +1,6 @@
 # Arrival in the world of Hermea
 label arrival:
+    $ populate_loot_tables()
     show screen call_gui
     scene arrival with Dissolve(.5)
     show milim_idle at right with Dissolve(.5)

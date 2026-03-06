@@ -184,7 +184,12 @@ init python:
                     equip_item(item, "armor")
                 elif isinstance(item, Accessory):
                     equip_item(item, "accessory")
-
+        
+        elif isinstance(item, Lootbox) and getattr(item, 'clickable', False):
+            # Remove the lootbox from the inventory first
+            inventory.remove_item(item)
+            # Hide the inventory screen and call the opening sequence.
+            renpy.run(action=[Hide("inventory"), Function(initiate_lootbox, item.content)])
 
 # -------------------------------------------------------------------------
 # VARIABLES & INSTANCES
@@ -242,7 +247,7 @@ screen inventory(selection_mode=False):
                     xysize (200, 200)
                     # In selection mode, you can't interact with equipped items.
                     # Otherwise, clicking unequips the item.
-                    action If(selection_mode, NullAction(), Function(inventory_item_interact, item))
+                    action If(selection_mode, NullAction(), [SetScreenVariable("hovered_item", None), Function(inventory_item_interact, item)])
 
                     hovered SetScreenVariable("hovered_item", item)
                     unhovered SetScreenVariable("hovered_item", None)
@@ -265,7 +270,7 @@ screen inventory(selection_mode=False):
                 xysize (250, 250)
                 # In selection mode, clicking returns the item.
                 # Otherwise, it calls the interaction function.
-                action If(selection_mode, Return(item), Function(inventory_item_interact, item))
+                action If(selection_mode, Return(item), [SetScreenVariable("hovered_item", None), Function(inventory_item_interact, item)])
 
                 hovered SetScreenVariable("hovered_item", item)
                 unhovered SetScreenVariable("hovered_item", None)

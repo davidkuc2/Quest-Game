@@ -56,6 +56,8 @@ default mern_button = ImageButton("images/act1/people/mern_%s.png", Jump("menu_m
 # Mages Tower Tamra
 default mages_tower = ImageButton("images/imagebuttons/arrow_left_%s.png", Jump("mages_tower"))
 
+# Skip Button
+default skip = ImageButton("images/imagebuttons/skip_button_%s.png", [Hide("lootbox"), Function(show_lootbox_reward)])
 
 # Define imagebuttons with given parameters
 

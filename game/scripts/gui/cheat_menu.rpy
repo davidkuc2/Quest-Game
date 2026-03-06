@@ -1,3 +1,12 @@
+init python:
+    def cheat_add_lootbox(lootbox):
+        import copy
+        # Create a copy to ensure we add 1 and don't mess up global/inventory references
+        lb = copy.copy(lootbox)
+        lb.quantity = 1
+        inventory.add_item(lb)
+        renpy.notify("Added " + lb.name)
+
 screen cheat_menu():
     modal True
     zorder 100
@@ -12,7 +21,10 @@ screen cheat_menu():
         textbutton "skip tutorial" action [SetVariable("inventory_unlocked", True), SetVariable("quests_unlocked", True), Hide("cheat_menu"), Show("call_gui"), Jump("tamra")]
         textbutton "+100 coins" action [SetField(inventory, "money", inventory.money + 100)]
         textbutton "test fight" action Jump("test_fight")
-        textbutton "test lootbox" action Call("open_lootbox")
+        textbutton "Add Follower Lootbox" action Function(cheat_add_lootbox, follower_lootbox)
+        textbutton "Add Armor Lootbox" action Function(cheat_add_lootbox, armor_lootbox)
+        textbutton "Add Weapon Lootbox" action Function(cheat_add_lootbox, weapon_lootbox)
+        textbutton "Add Accessory Lootbox" action Function(cheat_add_lootbox, accessory_lootbox)
         if follower_logbook_unlocked == False:
             textbutton "enable follower logbook" action SetVariable("follower_logbook_unlocked", True)
         if not green_slime.unlocked:

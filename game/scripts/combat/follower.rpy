@@ -2,7 +2,7 @@ init python:
     import copy
 
     class Follower_Character(Combat_Character):
-        def __init__(self, name, max_hp, hp, attack_dice, damage, weakness, resistance, element, power, rarity, grade=1, image=None, lootable=False, min_tier=0, unlocked=False):
+        def __init__(self, name, max_hp, hp, attack_dice, damage, weakness, resistance, element, power, rarity, grade=1, image=None, lootable=True, min_tier=0, unlocked=False, power_last_used_turn=-100):
             Combat_Character.__init__(self, name, max_hp, hp, attack_dice, damage, grade, image)
             self.weakness = weakness
             self.resistance = resistance
@@ -12,6 +12,7 @@ init python:
             self.lootable = lootable
             self.min_tier = min_tier
             self.unlocked = unlocked
+            self.power_last_used_turn = power_last_used_turn
             
             # Automatically add to the global list (excluding the dummy follower)
             if self.name != "":
@@ -56,7 +57,7 @@ default power_multi_attack = Power("Multi Attack", "power_multi_attack")
 # Set Global Progression for Lootboxes
 default current_loot_tier = 0
 
-# Define Followers
+# Dummy Follower and Follower List 
 default all_followers = []
 default follower = Follower_Character("", 0, 0, "", 0, [], [], [], None, 0, 1)
 
@@ -65,16 +66,24 @@ default green_slime = Follower_Character("Green Slime", 20, 20, "1D4", 0, ["Fire
 default minotaur = Follower_Character("Minotaur", 10, 10, "1d10", 0, [], [], [], None, "common", 2, "images/followers/minotaur")
 default orc = Follower_Character("Orc", 12, 12, "1d8", 0, [], [], [], None, "common", 2, "images/followers/orc")
 default fairy = Follower_Character("Fairy", 15, 15, "1d4", 0, ["Force"], [], [], power_heal, "common", 1, "images/followers/fairy")
+
 default seaserpent = Follower_Character("Sea Serpent", 12, 12, "1d8", 0, ["Fire, Ice"], ["Water"], ["Water"], power_smite, "rare", 3, "images/followers/seaserpent")
 default seawitch = Follower_Character("Sea Witch", 10, 10, "1d10", 0, ["Fire", "Ice"], ["Water"], ["Water"], power_smite, "epic", 5, "images/followers/seawitch")
+
 default sphinx = Follower_Character("Sphinx", 10, 10, "1d10", 0, ["Force"], ["Earth", "Stone", "Necrotic"], ["Earth", "Stone"], power_defend, "epic", 5, "images/followers/sphinx")
+
 default zombie = Follower_Character("Zombie", 16, 16, "1d6", 0, ["Force"], ["Necrotic", "Iron"], ["Earth", "Necrotic"], None, "rare", 4, "images/followers/zombie")
 default mage = Follower_Character("Mage", 10, 10, "1d10", 0, [], [], [], power_multi_attack, "legendary", 7, "images/followers/mage")
+
 default valkyrie = Follower_Character("Valkyrie", 10, 10, "1d10", 0, [], ["Iron", "Force"], ["Stone", "Iron"], power_smite, "epic", 6, "images/followers/valkyrie")
+
 default night_elf = Follower_Character("Night Elf", 18, 18, "1d4", 0, ["Psychic"], ["Dream"], ["Dream"], None, "rare", 3, "images/followers/night_elf")
 default guard_elf = Follower_Character("Guard Elf", 12, 12, "1d8", 0, [], [], ["Iron"], power_defend, "rare", 4, "images/followers/guard_elf")
+
 default demon = Follower_Character("Demon", 10, 10, "1d12", 0, ["Holy"], ["Nectoric", "Fire", "Ice"], ["Necrotic", "Fire", "Ice"], power_multi_attack, "legendary", 7, "images/followers/demon")
 default angel = Follower_Character("Angel", 10, 10, "1d12", 0, [], ["Holy", "Fire", "Dream"], ["Holy"], power_heal, "legendary", 8, "images/followers/angel")
+
+# Lootbox Followers 
 
 
 # Screen for the follower's turn
@@ -84,7 +93,15 @@ screen follower_turn:
 
     use call_image_button_no_target(attack, [Call("follower_attack"), Hide("follower_turn")])
     if follower.power:
-        use call_image_button_no_target(power, If((turn_count - 1) % 3 == 0, [power.action, Hide("follower_turn")], None))
+        $ power_is_on_cooldown = turn_count < follower.power_last_used_turn + 3
+        if power_is_on_cooldown:
+            imagebutton:
+                focus_mask True
+                idle "images/combat/power_button_hover.png"
+                hover "images/combat/power_button_hover.png"
+                action NullAction()
+        else:
+            use call_image_button_no_target(power, [Call("follower_power"), Hide("follower_turn")])
 
 
 # Follower Attack
@@ -122,6 +139,7 @@ label follower_attack:                                              # follower t
 label follower_power:
 
     if follower.power:
+        $ follower.power_last_used_turn = turn_count
         call expression follower.power.label_name
     else:
         "Your follower has no power to use!"

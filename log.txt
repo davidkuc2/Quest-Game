@@ -1,37 +1,37 @@
-2026-03-02 16:11:07 UTC
+2026-03-06 15:46:33 UTC
 Windows-10-10.0.19045
 Ren'Py 8.3.0.24082114
 
 Early init took 0.14s
-Loading error handling took 0.08s
-Loading script took 0.67s
-Loading save slot metadata took 0.25s
+Loading error handling took 0.05s
+Loading script took 0.23s
+Loading save slot metadata took 0.06s
 Loading persistent took 0.00s
-Running init code took 0.15s
-Loading analysis data took 0.03s
+Running init code took 0.08s
+Loading analysis data took 0.02s
 Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.22s
+Reloading save slot metadata took 0.04s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
-Dump and make backups took 0.09s
+Dump and make backups took 0.10s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
 Initial gc took 0.04s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.25s
+Creating interface object took 0.30s
 Cleaning stores took 0.00s
 Init translation took 0.04s
 Build styles took 0.00s
-Load screen analysis took 0.01s
+Load screen analysis took 0.00s
 Analyze screens took 0.02s
-Save screen analysis took 0.02s
-Prepare screens took 0.11s
+Save screen analysis took 0.03s
+Prepare screens took 0.12s
 Save pyanalysis. took 0.02s
 Save bytecode. took 0.03s
 Running _start took 0.00s
-Interface start took 0.12s
+Interface start took 0.07s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
@@ -46,30 +46,30 @@ Maximum texture size: 4096x4096
 Cleaning stores took 0.00s
 Init translation took 0.00s
 Build styles took 0.00s
-Load screen analysis took 0.06s
+Load screen analysis took 0.05s
 Analyze screens took 0.00s
 Prepare screens took 0.00s
 Running _start took 0.00s
 Resetting cache.
-Early init took 69.78s
+Early init took 557.06s
 Loading error handling took 0.04s
-Loading script took 0.19s
+Loading script took 0.23s
 Loading save slot metadata took 0.04s
 Loading persistent took 0.00s
-Running init code took 0.04s
+Running init code took 0.05s
 Loading analysis data took 0.02s
 Analyze and compile ATL took 0.00s
 Reloading save slot metadata took 0.04s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
-Dump and make backups took 0.08s
+Dump and make backups took 0.09s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
 Initial gc took 0.06s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.25s
+Creating interface object took 0.28s
 Cleaning stores took 0.00s
 Init translation took 0.04s
 Build styles took 0.00s
@@ -77,6 +77,237 @@ Load screen analysis took 0.00s
 Analyze screens took 0.02s
 Save screen analysis took 0.02s
 Prepare screens took 0.10s
+Save pyanalysis. took 0.02s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.05s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1974, in execute
+    self.call("execute")
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1953, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\statementexports.py", line 345, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2188, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 480, in visit_all
+    callback(self)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 491, in per_interact
+    self.update()
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 697, in update
+    self.screen.function(**self.scope)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 975, in _imagebutton
+    idle = choice(idle, idle_image, "idle", required=True)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 969, in choice
+    raise Exception("Imagebutton does not have a %s image. (auto=%r)." % (name, auto))
+Exception: Imagebutton does not have a idle image. (auto='images/imagebuttons/skip_%s.png').
+
+While running game code:
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+Exception: Imagebutton does not have a idle image. (auto='images/imagebuttons/skip_%s.png').
+Resetting cache.
+Early init took 587.78s
+Loading error handling took 0.03s
+Loading script took 0.19s
+Loading save slot metadata took 0.04s
+Loading persistent took 0.00s
+Running init code took 0.05s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.04s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.09s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.06s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.28s
+Cleaning stores took 0.00s
+Init translation took 0.05s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.02s
+Prepare screens took 0.10s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.06s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 580.97'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1974, in execute
+    self.call("execute")
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1953, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\statementexports.py", line 345, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2188, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 480, in visit_all
+    callback(self)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 491, in per_interact
+    self.update()
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 697, in update
+    self.screen.function(**self.scope)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 975, in _imagebutton
+    idle = choice(idle, idle_image, "idle", required=True)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 969, in choice
+    raise Exception("Imagebutton does not have a %s image. (auto=%r)." % (name, auto))
+Exception: Imagebutton does not have a idle image. (auto='images/imagebuttons/skip_%s.png').
+
+While running game code:
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+Exception: Imagebutton does not have a idle image. (auto='images/imagebuttons/skip_%s.png').
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.05s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
+Running _start took 0.00s
+Resetting cache.
+Early init took 913.02s
+Loading error handling took 0.03s
+Loading script took 0.22s
+Loading save slot metadata took 0.04s
+Loading persistent took 0.00s
+Running init code took 0.14s
+Loading analysis data took 0.04s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.03s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
+Dump and make backups took 0.09s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.07s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.28s
+Cleaning stores took 0.00s
+Init translation took 0.05s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.02s
+Prepare screens took 0.11s
 Save pyanalysis. took 0.00s
 Save bytecode. took 0.02s
 Running _start took 0.00s
@@ -92,126 +323,114 @@ Version: b'4.6.0 NVIDIA 580.97'
 Display Info: None
 Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
 Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 105.52s
-Loading error handling took 0.02s
-Loading script took 0.17s
-Loading save slot metadata took 0.03s
-Loading persistent took 0.00s
-Running init code took 0.05s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.03s
-Index archives took 0.00s
-Dump and make backups took 0.08s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.06s
-DPI scale factor: 1.000000
-nvdrs: Loaded, about to disable thread optimizations.
-nvdrs: Disabled thread optimizations.
-Creating interface object took 0.24s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.04s
-Analyze screens took 0.00s
-Save screen analysis took 0.00s
-Prepare screens took 0.09s
-Save pyanalysis. took 0.00s
-Save bytecode. took 0.00s
-Running _start took 0.00s
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Fullscreen mode.
-Vendor: "b'NVIDIA Corporation'"
-Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
-Version: b'4.6.0 NVIDIA 580.97'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
-Maximum texture size: 4096x4096
 Cleaning stores took 0.00s
 Init translation took 0.00s
 Build styles took 0.00s
-Load screen analysis took 0.04s
+Load screen analysis took 0.05s
 Analyze screens took 0.00s
 Prepare screens took 0.00s
 Running _start took 0.00s
+
+Full traceback:
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1974, in execute
+    self.call("execute")
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1953, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\statementexports.py", line 345, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2188, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 480, in visit_all
+    callback(self)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 491, in per_interact
+    self.update()
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 697, in update
+    self.screen.function(**self.scope)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 975, in _imagebutton
+    idle = choice(idle, idle_image, "idle", required=True)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 969, in choice
+    raise Exception("Imagebutton does not have a %s image. (auto=%r)." % (name, auto))
+Exception: Imagebutton does not have a idle image. (auto='images/lootboxes/skip_button_%s.png').
+
+While running game code:
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+Exception: Imagebutton does not have a idle image. (auto='images/lootboxes/skip_button_%s.png').
 Resetting cache.
-Early init took 246.65s
+Early init took 942.74s
 Loading error handling took 0.03s
-Loading script took 0.20s
+Loading script took 0.22s
 Loading save slot metadata took 0.04s
 Loading persistent took 0.00s
-Running init code took 0.05s
-Loading analysis data took 0.02s
+Running init code took 0.15s
+Loading analysis data took 0.03s
 Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.03s
+Reloading save slot metadata took 0.04s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Anwender\\AppData\\Roaming/RenPy/backups\\Quest-Game':
-Dump and make backups took 0.09s
+Dump and make backups took 0.10s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc took 0.07s
+Initial gc took 0.08s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.25s
+Creating interface object took 0.32s
 Cleaning stores took 0.00s
 Init translation took 0.05s
 Build styles took 0.00s
 Load screen analysis took 0.00s
 Analyze screens took 0.02s
-Save screen analysis took 0.02s
-Prepare screens took 0.10s
+Save screen analysis took 0.04s
+Prepare screens took 0.11s
 Save pyanalysis. took 0.00s
 Save bytecode. took 0.02s
 Running _start took 0.00s
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Fullscreen mode.
-Vendor: "b'NVIDIA Corporation'"
-Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
-Version: b'4.6.0 NVIDIA 580.97'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 252.19s
-Loading error handling took 0.02s
-Loading script took 0.17s
-Loading save slot metadata took 0.04s
-Loading persistent took 0.00s
-Running init code took 0.06s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.03s
-Index archives took 0.00s
-Dump and make backups took 0.08s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-nvdrs: Loaded, about to disable thread optimizations.
-nvdrs: Disabled thread optimizations.
-Creating interface object took 0.24s
-Cleaning stores took 0.00s
-Init translation took 0.05s
-Build styles took 0.00s
-Load screen analysis took 0.04s
-Analyze screens took 0.00s
-Save screen analysis took 0.00s
-Prepare screens took 0.10s
-Save pyanalysis. took 0.00s
-Save bytecode. took 0.00s
-Running _start took 0.00s
-Interface start took 0.08s
+Interface start took 0.06s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
@@ -226,7 +445,7 @@ Maximum texture size: 4096x4096
 Cleaning stores took 0.00s
 Init translation took 0.00s
 Build styles took 0.00s
-Load screen analysis took 0.04s
+Load screen analysis took 0.05s
 Analyze screens took 0.00s
 Prepare screens took 0.00s
 Running _start took 0.00s

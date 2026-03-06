@@ -1,51 +1,78 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "renpy/common/00start.rpy", line 193, in script
-    python:
-  File "renpy/common/00start.rpy", line 193, in script
-    python:
-  File "renpy/common/00start.rpy", line 194, in <module>
-    renpy.execute_default_statement(True)
-  File "game/scripts/combat/follower.rpy", line 68, in execute_default
-    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
-  File "game/scripts/combat/follower.rpy", line 68, in <module>
-    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
-NameError: name 'seapserpent' is not defined
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+Exception: Imagebutton does not have a idle image. (auto='images/lootboxes/skip_button_%s.png').
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\main.py", line 652, in main
-    run(restart)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\main.py", line 148, in run
-    renpy.execution.run_context(True)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\execution.py", line 958, in run_context
-    context.run()
-  File "renpy/common/00start.rpy", line 193, in script
-    python:
-  File "lib/python3.9/future/utils/__init__.py", line 444, in raise_
-  File "renpy/common/00start.rpy", line 193, in script
-    python:
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 821, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1178, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "renpy/common/00start.rpy", line 194, in <module>
-    renpy.execute_default_statement(True)
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\statementexports.py", line 372, in execute_default_statement
-    i.execute_default(start)
-  File "game/scripts/combat/follower.rpy", line 68, in execute_default
-    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
-  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\python.py", line 1202, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/scripts/combat/follower.rpy", line 68, in <module>
-    default all_followers = [green_slime, minotaur, orc, fairy, seaserpent, seawitch, sphinx, zombie, mage, valkyrie, night_elf, guard_elf, demon, angel]
-NameError: name 'seapserpent' is not defined
+  File "game/scripts/act1/tamra.rpy", line 12, in script
+    call screen tamra
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1974, in execute
+    self.call("execute")
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ast.py", line 1953, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\exports\statementexports.py", line 345, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2188, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 480, in visit_all
+    callback(self)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\core.py", line 2705, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 491, in per_interact
+    self.update()
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\display\screen.py", line 697, in update
+    self.screen.function(**self.scope)
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 168, in execute
+    screen lootbox():
+  File "game/scripts/gui/lootboxes.rpy", line 197, in execute
+    use call_image_button(skip)
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 10, in execute
+    screen call_image_button(btn):
+  File "game/scripts/functions/imagebuttons.rpy", line 11, in execute
+    imagebutton:
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 975, in _imagebutton
+    idle = choice(idle, idle_image, "idle", required=True)
+  File "C:\Users\Anwender\David\Programmieren\renpy-8.3.0-sdk\renpy\ui.py", line 969, in choice
+    raise Exception("Imagebutton does not have a %s image. (auto=%r)." % (name, auto))
+Exception: Imagebutton does not have a idle image. (auto='images/lootboxes/skip_button_%s.png').
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.0.24082114
 Quest 1.0
-Sat Feb 28 17:03:48 2026
+Fri Mar  6 17:01:59 2026
